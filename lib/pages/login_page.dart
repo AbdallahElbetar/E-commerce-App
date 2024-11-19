@@ -1,6 +1,6 @@
 import 'package:ecommerce/cubits/auth_cubit/login_cubit/login_cubit.dart';
 import 'package:ecommerce/cubits/auth_cubit/login_cubit/login_states.dart';
-import 'package:ecommerce/main.dart';
+
 import 'package:ecommerce/pages/home_page.dart';
 
 import 'package:ecommerce/widgets/custom_button.dart';
