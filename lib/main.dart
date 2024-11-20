@@ -1,13 +1,16 @@
 import 'package:ecommerce/cubits/auth_cubit/login_cubit/login_cubit.dart';
 import 'package:ecommerce/cubits/auth_cubit/register_cubit/register_cubit.dart';
+import 'package:ecommerce/pages/authintiction_page.dart';
 import 'package:ecommerce/pages/home_page.dart';
 import 'package:ecommerce/pages/login_page.dart';
 import 'package:ecommerce/pages/register_page.dart';
 import 'package:ecommerce/pages/splash_page.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-void main() {
+void main() async {
+  // await SharedPrefrencesService.intialSharedpref();
   runApp(Ecommerce());
 }
 
@@ -26,11 +29,13 @@ class Ecommerce extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
+        theme: ThemeData(useMaterial3: true),
         routes: {
           SplashPage.id: (context) => SplashPage(),
           HomePage.id: (context) => HomePage(),
           RegisterPage.id: (context) => RegisterPage(),
           LoginPage.id: (context) => LoginPage(),
+          AuthintictionPage.id: (context) => AuthintictionPage(),
         },
         initialRoute: SplashPage.id,
       ),

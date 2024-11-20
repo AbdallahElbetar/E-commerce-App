@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:ecommerce/constants.dart';
 import 'package:ecommerce/cubits/auth_cubit/login_cubit/login_states.dart';
+import 'package:ecommerce/services/shared_prefrences_service.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginCubit extends Cubit<LoginStates> {
@@ -25,6 +26,8 @@ class LoginCubit extends Cubit<LoginStates> {
       );
 
       if (response.data["status"] == true) {
+        SharedPrefrencesService.setToCache(
+            key: "token", value: response.data["data"]["token"]);
         emit(LoginSuccessState());
       } else {
         emit(

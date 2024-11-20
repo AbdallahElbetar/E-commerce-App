@@ -1,4 +1,5 @@
-import 'package:ecommerce/pages/register_page.dart';
+import 'package:ecommerce/pages/authintiction_page.dart';
+
 import 'package:flutter/material.dart';
 
 class SplashPage extends StatefulWidget {
@@ -14,9 +15,12 @@ class _SplashPageState extends State<SplashPage> {
   void initState() {
     super.initState();
 
-    Future.delayed(Duration(seconds: 4), () {
-      Navigator.pushReplacementNamed(context, RegisterPage.id);
-    });
+    Future.delayed(
+      Duration(seconds: 4),
+      () {
+        Navigator.pushReplacementNamed(context, AuthintictionPage.id);
+      },
+    );
   }
 
   @override

@@ -2,6 +2,7 @@ import 'package:ecommerce/cubits/auth_cubit/login_cubit/login_cubit.dart';
 import 'package:ecommerce/cubits/auth_cubit/login_cubit/login_states.dart';
 
 import 'package:ecommerce/pages/home_page.dart';
+import 'package:ecommerce/pages/register_page.dart';
 
 import 'package:ecommerce/widgets/custom_button.dart';
 import 'package:ecommerce/widgets/custom_text_form_field.dart';
@@ -98,7 +99,7 @@ class LoginPage extends StatelessWidget {
                       child: ListView(
                         children: [
                           SizedBox(
-                            height: MediaQuery.of(context).size.height * .09,
+                            height: MediaQuery.of(context).size.height * .05,
                           ),
                           Text(
                             "Login to Continue Process",
@@ -147,7 +148,7 @@ class LoginPage extends StatelessWidget {
                                   ),
                           ),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Text(
                                 "Forget Your Password ? ",
@@ -155,6 +156,21 @@ class LoginPage extends StatelessWidget {
                               ),
                               TextButton(
                                   onPressed: () {}, child: Text("Click here"))
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Don,t Have An Account  ? ",
+                                style: TextStyle(color: Colors.black),
+                              ),
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.pushNamed(
+                                        context, RegisterPage.id);
+                                  },
+                                  child: Text("Register Now"))
                             ],
                           )
                         ],
