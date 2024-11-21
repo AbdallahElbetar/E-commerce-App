@@ -4,6 +4,7 @@ import 'package:ecommerce/services/shared_prefrences_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+// ignore: must_be_immutable
 class AuthintictionPage extends StatelessWidget {
   AuthintictionPage({super.key});
   static String id = "AuthintictionPage";
@@ -12,7 +13,7 @@ class AuthintictionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ValueOfToken = SharedPrefrencesService.getFromCache(key: "token");
-    if (ValueOfToken == null || ValueOfToken == "") {
+    if (ValueOfToken == "" || ValueOfToken == null) {
       return LoginPage();
     } else {
       return HomePage();

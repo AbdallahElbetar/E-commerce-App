@@ -5,12 +5,14 @@ import 'package:ecommerce/pages/home_page.dart';
 import 'package:ecommerce/pages/login_page.dart';
 import 'package:ecommerce/pages/register_page.dart';
 import 'package:ecommerce/pages/splash_page.dart';
+import 'package:ecommerce/services/shared_prefrences_service.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() async {
-  // await SharedPrefrencesService.intialSharedpref();
+  WidgetsFlutterBinding.ensureInitialized();
+  await SharedPrefrencesService.intialSharedpref();
   runApp(Ecommerce());
 }
 
@@ -29,6 +31,7 @@ class Ecommerce extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(useMaterial3: true),
         routes: {
           SplashPage.id: (context) => SplashPage(),
