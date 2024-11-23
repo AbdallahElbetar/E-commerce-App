@@ -28,8 +28,10 @@ class LoginCubit extends Cubit<LoginStates> {
       if (response.data["status"] == true) {
         SharedPrefrencesService.setToCache(
             key: "token", value: response.data["data"]["token"]);
+        log(response.data["data"]["token"]);
         emit(LoginSuccessState());
       } else {
+        log("response.status == flase ");
         emit(
           LoginFailureState(
             message: response.data["message"],
@@ -37,7 +39,7 @@ class LoginCubit extends Cubit<LoginStates> {
         );
       }
     } on DioException catch (e) {
-      log("${e.message}");
+      log(" in Dio Exciption ${e.message}");
 
       emit(
         LoginFailureState(
@@ -45,7 +47,7 @@ class LoginCubit extends Cubit<LoginStates> {
             message: "${e.message}"),
       );
     } catch (e) {
-      log("${e.toString()}");
+      log("in any Exciption ${e.toString()}");
       emit(
         LoginFailureState(
           message: "An error occurred. Please try again later.",

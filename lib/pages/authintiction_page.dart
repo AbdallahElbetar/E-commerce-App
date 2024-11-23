@@ -13,7 +13,7 @@ class AuthintictionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ValueOfToken = SharedPrefrencesService.getFromCache(key: "token");
-    if (ValueOfToken == "" || ValueOfToken == null) {
+    if (ValueOfToken == "") {
       return LoginPage();
     } else {
       return HomePage();

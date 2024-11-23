@@ -1,5 +1,6 @@
 import 'package:ecommerce/cubits/auth_cubit/login_cubit/login_cubit.dart';
 import 'package:ecommerce/cubits/auth_cubit/register_cubit/register_cubit.dart';
+import 'package:ecommerce/cubits/layout_cubit/layout_cubit.dart';
 import 'package:ecommerce/pages/authintiction_page.dart';
 import 'package:ecommerce/pages/home_page.dart';
 import 'package:ecommerce/pages/login_page.dart';
@@ -13,6 +14,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SharedPrefrencesService.intialSharedpref();
+
   runApp(Ecommerce());
 }
 
@@ -21,27 +23,35 @@ class Ecommerce extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<RegisterCubit>(
-          create: (context) => RegisterCubit(),
+    return Builder(builder: (context) {
+      return MultiBlocProvider(
+        providers: [
+          BlocProvider<RegisterCubit>(
+            create: (context) => RegisterCubit(),
+          ),
+          BlocProvider<LoginCubit>(
+            create: (context) => LoginCubit(),
+          ),
+          BlocProvider(
+            create: (context) => LayoutCubit(),
+          )
+        ],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            useMaterial3: true,
+            // brightness: Brightness.dark,
+          ),
+          routes: {
+            SplashPage.id: (context) => SplashPage(),
+            HomePage.id: (context) => HomePage(),
+            RegisterPage.id: (context) => RegisterPage(),
+            LoginPage.id: (context) => LoginPage(),
+            AuthintictionPage.id: (context) => AuthintictionPage(),
+          },
+          initialRoute: SplashPage.id,
         ),
-        BlocProvider<LoginCubit>(
-          create: (context) => LoginCubit(),
-        ),
-      ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(useMaterial3: true),
-        routes: {
-          SplashPage.id: (context) => SplashPage(),
-          HomePage.id: (context) => HomePage(),
-          RegisterPage.id: (context) => RegisterPage(),
-          LoginPage.id: (context) => LoginPage(),
-          AuthintictionPage.id: (context) => AuthintictionPage(),
-        },
-        initialRoute: SplashPage.id,
-      ),
-    );
+      );
+    });
   }
 }
