@@ -17,3 +17,5 @@ class FailureUserDataState extends LayoutStates {
   final String message;
   FailureUserDataState({required this.message});
 }
+
+class BottomNavigationChangedState extends LayoutStates {}

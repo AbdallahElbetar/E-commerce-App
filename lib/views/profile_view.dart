@@ -13,6 +13,7 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     // context.read<LayoutCubit>().getUserData();
     BlocProvider.of<LayoutCubit>(context).getUserData();
+
     return BlocConsumer<LayoutCubit, LayoutStates>(
       listener: (context, state) {},
       builder: (context, state) {

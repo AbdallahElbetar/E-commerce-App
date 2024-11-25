@@ -2,7 +2,7 @@ import 'package:ecommerce/cubits/auth_cubit/login_cubit/login_cubit.dart';
 import 'package:ecommerce/cubits/auth_cubit/register_cubit/register_cubit.dart';
 import 'package:ecommerce/cubits/layout_cubit/layout_cubit.dart';
 import 'package:ecommerce/pages/authintiction_page.dart';
-import 'package:ecommerce/pages/home_page.dart';
+import 'package:ecommerce/pages/layout_page.dart';
 import 'package:ecommerce/pages/login_page.dart';
 import 'package:ecommerce/pages/register_page.dart';
 import 'package:ecommerce/pages/splash_page.dart';
@@ -44,7 +44,7 @@ class Ecommerce extends StatelessWidget {
           ),
           routes: {
             SplashPage.id: (context) => SplashPage(),
-            HomePage.id: (context) => HomePage(),
+            LayoutPage.id: (context) => LayoutPage(),
             RegisterPage.id: (context) => RegisterPage(),
             LoginPage.id: (context) => LoginPage(),
             AuthintictionPage.id: (context) => AuthintictionPage(),

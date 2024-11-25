@@ -1,7 +1,7 @@
 import 'package:ecommerce/cubits/auth_cubit/login_cubit/login_cubit.dart';
 import 'package:ecommerce/cubits/auth_cubit/login_cubit/login_states.dart';
 
-import 'package:ecommerce/pages/home_page.dart';
+import 'package:ecommerce/pages/layout_page.dart';
 import 'package:ecommerce/pages/register_page.dart';
 
 import 'package:ecommerce/widgets/custom_button.dart';
@@ -20,7 +20,7 @@ class LoginPage extends StatelessWidget {
     return BlocConsumer<LoginCubit, LoginStates>(
       listener: (context, state) {
         if (state is LoginSuccessState) {
-          Navigator.pushNamed(context, HomePage.id);
+          Navigator.pushNamed(context, LayoutPage.id);
           emailController.clear();
           passwordController.clear();
         } else if (state is LoginFailureState) {

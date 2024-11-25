@@ -1,4 +1,4 @@
-import 'package:ecommerce/pages/home_page.dart';
+import 'package:ecommerce/pages/layout_page.dart';
 import 'package:ecommerce/pages/login_page.dart';
 import 'package:ecommerce/services/shared_prefrences_service.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +16,7 @@ class AuthintictionPage extends StatelessWidget {
     if (ValueOfToken == "") {
       return LoginPage();
     } else {
-      return HomePage();
+      return LayoutPage();
     }
   }
 }
