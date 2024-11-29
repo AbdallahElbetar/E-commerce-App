@@ -17,6 +17,7 @@ class LayoutPage extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
+            elevation: 0,
             title: Row(
               children: [
                 Image.asset("lib/assets/images/logo.png"),

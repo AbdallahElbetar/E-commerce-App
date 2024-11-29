@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:ecommerce/cubits/layout_cubit/layout_cubit.dart';
 import 'package:ecommerce/cubits/layout_cubit/layout_states.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,6 +22,30 @@ class HomeView extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Column(
             children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.008,
+              ),
+              TextField(
+                  decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.grey.withAlpha(100),
+                      prefixIcon: IconButton(
+                          onPressed: () {}, icon: Icon(Icons.search)),
+                      suffixIcon:
+                          IconButton(onPressed: () {}, icon: Icon(Icons.clear)),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(30),
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(30),
+                        ),
+                      ),
+                      label: Text("search"),
+                      hintText: "Search",
+                      hintStyle: TextStyle(color: Colors.black))),
               Container(
                 height: MediaQuery.of(context).size.height * .25,
                 width: double.infinity,
