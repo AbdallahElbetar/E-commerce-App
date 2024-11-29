@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:ecommerce/constants.dart';
 import 'package:ecommerce/cubits/layout_cubit/layout_states.dart';
+import 'package:ecommerce/models/banner_model.dart';
 import 'package:ecommerce/models/user_model.dart';
 import 'package:ecommerce/services/shared_prefrences_service.dart';
 import 'package:ecommerce/views/category_view.dart';
@@ -70,6 +71,31 @@ class LayoutCubit extends Cubit<LayoutStates> {
     } catch (e) {
       log("General Exception: ${e.toString()}");
       emit(FailureUserDataState(message: e.toString()));
+    }
+  }
+
+  Future<List<BannerModel>> getBannerData() async {
+    try {
+      emit(LoadingGetBannerState());
+      final List<BannerModel> bannerDataList = [];
+
+      final Response response = await Dio().get(getBannersDataUrl);
+
+      final List<dynamic> jsonData = response.data["data"];
+      for (int i = 0; i < jsonData.length; i++) {
+        bannerDataList.add(BannerModel.fromJson(json: jsonData[i]));
+      }
+      emit(SuccessGetBannerState(bannerData: bannerDataList));
+      log('Success Get Data ${bannerDataList}');
+      return bannerDataList;
+    } on DioException catch (e) {
+      log('Dio error: ${e.message}');
+      emit(FailureGetBannerState(message: e.message!));
+      return Future.error('Failed to load banner data');
+    } catch (e) {
+      log('General Error: $e');
+      emit(FailureGetBannerState(message: e.toString()));
+      return Future.error('Unexpected error occurred');
     }
   }
 }

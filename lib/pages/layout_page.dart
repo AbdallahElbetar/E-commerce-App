@@ -16,6 +16,17 @@ class LayoutPage extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
+          appBar: AppBar(
+            title: Row(
+              children: [
+                Image.asset("lib/assets/images/logo.png"),
+                Text(
+                  "Fashion",
+                  style: TextStyle(color: Colors.pink),
+                )
+              ],
+            ),
+          ),
           bottomNavigationBar: CurvedNavigationBar(
             index: cubit.indexBottomNavBar,
             items: [
