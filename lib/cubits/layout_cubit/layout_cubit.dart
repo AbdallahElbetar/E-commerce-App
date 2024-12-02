@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:ecommerce/constants.dart';
 import 'package:ecommerce/cubits/layout_cubit/layout_states.dart';
 import 'package:ecommerce/models/banner_model.dart';
+import 'package:ecommerce/models/categories_model.dart';
 import 'package:ecommerce/models/user_model.dart';
 import 'package:ecommerce/services/shared_prefrences_service.dart';
 import 'package:ecommerce/views/category_view.dart';
@@ -85,8 +86,8 @@ class LayoutCubit extends Cubit<LayoutStates> {
       for (int i = 0; i < jsonData.length; i++) {
         bannerDataList.add(BannerModel.fromJson(json: jsonData[i]));
       }
-      emit(SuccessGetBannerState(bannerData: bannerDataList));
       log('Success Get Data ${bannerDataList}');
+      emit(SuccessGetBannerState(bannerData: bannerDataList));
       return bannerDataList;
     } on DioException catch (e) {
       log('Dio error: ${e.message}');
