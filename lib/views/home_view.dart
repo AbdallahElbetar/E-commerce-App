@@ -10,9 +10,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class HomeView extends StatelessWidget {
-  HomeView({super.key});
   final PageController pc = PageController();
   var futureCategoryData = HomePageServices().getCategoriesData();
+
+  HomeView({super.key});
 
   @override
   Widget build(BuildContext context) {

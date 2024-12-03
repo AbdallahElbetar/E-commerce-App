@@ -5,7 +5,7 @@ class CustomTextFormField extends StatelessWidget {
   final String labelText;
   final bool isPassword;
   final TextInputType inputType;
-  // final Function(String) onSubmitted;
+
   final TextEditingController controller;
 
   const CustomTextFormField(
@@ -14,7 +14,6 @@ class CustomTextFormField extends StatelessWidget {
       required this.labelText,
       required this.isPassword,
       required this.inputType,
-      // required this.onSubmitted,
       required this.controller});
 
   @override
@@ -23,7 +22,6 @@ class CustomTextFormField extends StatelessWidget {
       padding: const EdgeInsets.only(top: 20),
       child: TextFormField(
         controller: controller,
-        // onFieldSubmitted: onSubmitted,
         validator: (value) {
           if (value!.isEmpty) {
             return "$labelText Field is required ";

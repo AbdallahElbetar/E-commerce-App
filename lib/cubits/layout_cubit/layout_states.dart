@@ -33,15 +33,3 @@ class FailureGetBannerState extends LayoutStates {
   final String message;
   FailureGetBannerState({required this.message});
 }
-
-class LoadingGetCategoriesState extends LayoutStates {}
-
-class SuccessGetCategoriesState extends LayoutStates {
-  List<CategoriesModel> categoriesData;
-  SuccessGetCategoriesState({required this.categoriesData});
-}
-
-class FailureGetCategoriesState extends LayoutStates {
-  final String message;
-  FailureGetCategoriesState({required this.message});
-}
