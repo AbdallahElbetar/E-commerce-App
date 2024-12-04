@@ -2,16 +2,20 @@ import 'package:ecommerce/api/home_page_services.dart';
 import 'package:ecommerce/cubits/layout_cubit/layout_cubit.dart';
 import 'package:ecommerce/cubits/layout_cubit/layout_states.dart';
 import 'package:ecommerce/models/categories_model.dart';
+import 'package:ecommerce/models/product_model.dart';
+import 'package:ecommerce/widgets/product_card.dart';
 
 import 'package:ecommerce/widgets/search_bar_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class HomeView extends StatelessWidget {
   final PageController pc = PageController();
   var futureCategoryData = HomePageServices().getCategoriesData();
+  var futureProductData = HomePageServices().getHomeProduct();
 
   HomeView({super.key});
 
@@ -34,7 +38,8 @@ class HomeView extends StatelessWidget {
               SizedBox(height: 8), // Constant height for spacing
               buildPageIndicator(state),
               buildCategoriesHeader(),
-              buildCategoriesSection(state, context),
+              buildCategoriesSection(context),
+              buildProductsSdction(context)
             ],
           ),
         );
@@ -101,7 +106,7 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  Widget buildCategoriesSection(LayoutStates state, BuildContext context) {
+  Widget buildCategoriesSection(BuildContext context) {
     return FutureBuilder<List<CategoriesModel>>(
         future: futureCategoryData,
         builder: (context, AsyncSnapshot snapShot) {
@@ -132,5 +137,32 @@ class HomeView extends StatelessWidget {
             );
           }
         });
+  }
+
+  Widget buildProductsSdction(BuildContext context) {
+    return FutureBuilder<List<ProductModel>>(
+      future: futureProductData,
+      builder: (BuildContext context, AsyncSnapshot snapShot) {
+        if (snapShot.hasData) {
+          List<ProductModel> productData = snapShot.data;
+          return GridView.builder(
+              physics: NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: productData.length,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 8,
+                  crossAxisSpacing: 8,
+                  childAspectRatio: .6),
+              itemBuilder: (context, index) {
+                return ProductCard(productModel: productData[index]);
+              });
+        } else {
+          return Center(
+            child: CupertinoActivityIndicator(),
+          );
+        }
+      },
+    );
   }
 }
