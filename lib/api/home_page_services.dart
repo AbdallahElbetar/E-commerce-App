@@ -2,10 +2,9 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:ecommerce/constants.dart';
+import 'package:ecommerce/models/banner_model.dart';
 
 import 'package:ecommerce/models/categories_model.dart';
-import 'package:ecommerce/models/product_model.dart';
-import 'package:ecommerce/services/shared_prefrences_service.dart';
 
 class HomePageServices {
   Dio dio = Dio();
@@ -42,34 +41,27 @@ class HomePageServices {
     }
   }
 
-  Future<List<ProductModel>> getHomeProduct() async {
+  Future<List<BannerModel>> getBannerData() async {
     try {
-      List<ProductModel> productDataList = [];
-      Response response = await dio.get(
-        getProductsHomeBaseUrl,
-        options: Options(
-          headers: {
-            "lang": "ar",
-            "Authorization": SharedPrefrencesService.getFromCache(key: "token"),
-          },
-        ),
-      );
+      final List<BannerModel> bannerDataList = [];
 
-      List<dynamic> jsonData = response.data["data"]["products"];
+      final Response response = await Dio().get(getBannersDataUrl);
+
+      final List<dynamic> jsonData = response.data["data"];
       for (int i = 0; i < jsonData.length; i++) {
-        productDataList.add(ProductModel.fromJson(jsonData: jsonData[i]));
+        bannerDataList.add(BannerModel.fromJson(json: jsonData[i]));
       }
+      log('Success Get Data ${bannerDataList}');
 
-      log('Success Get Data $productDataList');
-      return productDataList;
+      return bannerDataList;
     } on DioException catch (e) {
       log('Dio error: ${e.message}');
 
-      return Future.error('Failed to load categories data: ${e.message}');
+      return Future.error('Failed to load banner data');
     } catch (e) {
-      log('General error: $e');
+      log('General Error: $e');
 
-      return Future.error(e.toString());
+      return Future.error('Unexpected error occurred');
     }
   }
 }

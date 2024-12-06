@@ -10,6 +10,8 @@ class ProductCard extends StatelessWidget {
     return Container(
       height: MediaQuery.of(context).size.height * 0.20,
       width: MediaQuery.of(context).size.height * 0.250,
+      decoration: BoxDecoration(
+          color: Colors.grey.shade100, borderRadius: BorderRadius.circular(10)),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -22,7 +24,7 @@ class ProductCard extends StatelessWidget {
           Text(
             productModel.name,
             overflow: TextOverflow.ellipsis,
-            maxLines: 2,
+            maxLines: 1,
             style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
           ),
           Row(

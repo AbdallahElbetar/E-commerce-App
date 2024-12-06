@@ -1,5 +1,6 @@
 import 'package:ecommerce/models/banner_model.dart';
-import 'package:ecommerce/models/categories_model.dart';
+import 'package:ecommerce/models/product_model.dart';
+
 import 'package:ecommerce/models/user_model.dart';
 
 abstract class LayoutStates {}
@@ -22,14 +23,31 @@ class FailureUserDataState extends LayoutStates {
 
 class BottomNavigationChangedState extends LayoutStates {}
 
-class LoadingGetBannerState extends LayoutStates {}
+// class LoadingGetBannerState extends LayoutStates {}
 
-class SuccessGetBannerState extends LayoutStates {
-  List<BannerModel> bannerData;
-  SuccessGetBannerState({required this.bannerData});
+// class SuccessGetBannerState extends LayoutStates {
+//   List<BannerModel> bannerData;
+//   SuccessGetBannerState({required this.bannerData});
+// }
+
+// class FailureGetBannerState extends LayoutStates {
+//   final String message;
+//   FailureGetBannerState({required this.message});
+// }
+
+class LoadingGetProductState extends LayoutStates {}
+
+class SuccessGetProductState extends LayoutStates {
+  List<ProductModel> productData;
+  SuccessGetProductState({required this.productData});
 }
 
-class FailureGetBannerState extends LayoutStates {
+class FailureGetProductState extends LayoutStates {
   final String message;
-  FailureGetBannerState({required this.message});
+  FailureGetProductState({required this.message});
+}
+
+class SuccessFiltterData extends LayoutStates {
+  List<ProductModel> productData;
+  SuccessFiltterData({required this.productData});
 }

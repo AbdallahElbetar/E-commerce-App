@@ -4,6 +4,7 @@ import 'package:ecommerce/constants.dart';
 import 'package:ecommerce/cubits/layout_cubit/layout_states.dart';
 import 'package:ecommerce/models/banner_model.dart';
 import 'package:ecommerce/models/categories_model.dart';
+import 'package:ecommerce/models/product_model.dart';
 import 'package:ecommerce/models/user_model.dart';
 import 'package:ecommerce/services/shared_prefrences_service.dart';
 import 'package:ecommerce/views/category_view.dart';
@@ -16,7 +17,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LayoutCubit extends Cubit<LayoutStates> {
   LayoutCubit() : super(IntialUserDataState());
-
+  List<ProductModel> productDataListWillFiltter = [];
   int indexBottomNavBar = 0;
   void bottomNavChanged({required int value}) {
     indexBottomNavBar = value;
@@ -75,28 +76,54 @@ class LayoutCubit extends Cubit<LayoutStates> {
     }
   }
 
-  Future<List<BannerModel>> getBannerData() async {
+  Future<List<ProductModel>> getHomeProduct() async {
     try {
-      emit(LoadingGetBannerState());
-      final List<BannerModel> bannerDataList = [];
+      emit(LoadingGetProductState());
+      List<ProductModel> productDataList = [];
+      Response response = await dio.get(
+        getProductsHomeBaseUrl,
+        options: Options(
+          headers: {
+            "lang": "en",
+            "Content-Type": "application/json",
+            "Authorization": SharedPrefrencesService.getFromCache(key: "token"),
+          },
+        ),
+      );
 
-      final Response response = await Dio().get(getBannersDataUrl);
-
-      final List<dynamic> jsonData = response.data["data"];
+      List<dynamic> jsonData = response.data["data"]["products"];
       for (int i = 0; i < jsonData.length; i++) {
-        bannerDataList.add(BannerModel.fromJson(json: jsonData[i]));
+        productDataList.add(ProductModel.fromJson(jsonData: jsonData[i]));
       }
-      log('Success Get Data ${bannerDataList}');
-      emit(SuccessGetBannerState(bannerData: bannerDataList));
-      return bannerDataList;
+
+      log('Success Get Data $productDataList');
+      productDataListWillFiltter = productDataList;
+      emit(SuccessGetProductState(productData: productDataList));
+      return productDataList;
     } on DioException catch (e) {
       log('Dio error: ${e.message}');
-      emit(FailureGetBannerState(message: e.message!));
-      return Future.error('Failed to load banner data');
+      emit(FailureGetProductState(message: e.message!));
+
+      return Future.error('Failed to load categories data: ${e.message}');
     } catch (e) {
-      log('General Error: $e');
-      emit(FailureGetBannerState(message: e.toString()));
-      return Future.error('Unexpected error occurred');
+      log('General error: $e');
+      emit(FailureGetProductState(message: e.toString()));
+      return Future.error(e.toString());
     }
+  }
+
+  List<ProductModel> productFilttered = [];
+  List<ProductModel> FliterProductData({required String input}) {
+    productFilttered.clear(); // Clear previous filtered results
+
+    if (input.isNotEmpty && productDataListWillFiltter.isNotEmpty) {
+      productFilttered = productDataListWillFiltter
+          .where((product) =>
+              product.name.toLowerCase().startsWith(input.toLowerCase()))
+          .toList();
+    }
+
+    emit(SuccessFiltterData(productData: productFilttered));
+    return productFilttered;
   }
 }

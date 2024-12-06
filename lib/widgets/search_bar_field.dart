@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 
 class SearchBarField extends StatelessWidget {
-  const SearchBarField({super.key});
-
+  SearchBarField({required this.controller, required this.onChanged});
+  TextEditingController controller = TextEditingController();
+  Function(String) onChanged;
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.05,
+      height: MediaQuery.of(context).size.height * 0.07,
       child: TextField(
+        onChanged: onChanged,
+        controller: controller,
         decoration: InputDecoration(
           filled: true,
           fillColor: Colors.grey.withAlpha(50),
