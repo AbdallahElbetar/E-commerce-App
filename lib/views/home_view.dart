@@ -15,6 +15,8 @@ class HomeView extends StatelessWidget {
   final PageController pc = PageController();
   final TextEditingController controller = TextEditingController();
 
+  HomeView({super.key});
+
   @override
   Widget build(BuildContext context) {
     var cubit = BlocProvider.of<LayoutCubit>(context);
@@ -32,7 +34,7 @@ class HomeView extends StatelessWidget {
               SearchBarField(
                 controller: controller,
                 onChanged: (value) {
-                  context.read<LayoutCubit>().FliterProductData(input: value);
+                  context.read<LayoutCubit>().fliterProductData(input: value);
                 },
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.01),
@@ -79,7 +81,7 @@ class HomeView extends StatelessWidget {
               child: Text("Error fetching banners: ${snapShot.error}"));
         } else if (snapShot.hasData) {
           List<BannerModel> bannerData = snapShot.data!;
-          return Container(
+          return SizedBox(
             height: MediaQuery.of(context).size.height * 0.25,
             width: double.infinity,
             child: PageView.builder(

@@ -9,6 +9,8 @@ import 'package:ecommerce/models/user_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProfilePage extends StatelessWidget {
+  const ProfilePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     // context.read<LayoutCubit>().getUserData();

@@ -1,4 +1,3 @@
-import 'package:ecommerce/models/banner_model.dart';
 import 'package:ecommerce/models/product_model.dart';
 
 import 'package:ecommerce/models/user_model.dart';

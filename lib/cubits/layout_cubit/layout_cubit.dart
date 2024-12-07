@@ -2,8 +2,7 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:ecommerce/constants.dart';
 import 'package:ecommerce/cubits/layout_cubit/layout_states.dart';
-import 'package:ecommerce/models/banner_model.dart';
-import 'package:ecommerce/models/categories_model.dart';
+
 import 'package:ecommerce/models/product_model.dart';
 import 'package:ecommerce/models/user_model.dart';
 import 'package:ecommerce/services/shared_prefrences_service.dart';
@@ -113,7 +112,7 @@ class LayoutCubit extends Cubit<LayoutStates> {
   }
 
   List<ProductModel> productFilttered = [];
-  List<ProductModel> FliterProductData({required String input}) {
+  List<ProductModel> fliterProductData({required String input}) {
     productFilttered.clear(); // Clear previous filtered results
 
     if (input.isNotEmpty && productDataListWillFiltter.isNotEmpty) {

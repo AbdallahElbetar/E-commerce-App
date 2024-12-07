@@ -26,6 +26,7 @@ class CustomTextFormField extends StatelessWidget {
           if (value!.isEmpty) {
             return "$labelText Field is required ";
           }
+          return null;
         },
         obscureText: isPassword,
         keyboardType: inputType,

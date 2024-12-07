@@ -9,6 +9,7 @@ import 'package:ecommerce/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+// ignore: must_be_immutable
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
   static String id = "LoginPage";
@@ -27,7 +28,7 @@ class LoginPage extends StatelessWidget {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               duration: Duration(seconds: 4),
-              content: Container(
+              content: SizedBox(
                 height: 50,
                 child: ListView(
                   scrollDirection: Axis.horizontal,

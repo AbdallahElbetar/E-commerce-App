@@ -17,7 +17,7 @@ class BuildCategoriesSection extends StatelessWidget {
           return Center(child: Text("Error fetching categories"));
         } else if (snapshot.hasData) {
           List<CategoriesModel> categoriesData = snapshot.data!;
-          return Container(
+          return SizedBox(
             width: double.infinity,
             height: MediaQuery.of(context).size.height * 0.08,
             child: ListView.builder(
@@ -37,6 +37,5 @@ class BuildCategoriesSection extends StatelessWidget {
         }
       },
     );
-    ;
   }
 }

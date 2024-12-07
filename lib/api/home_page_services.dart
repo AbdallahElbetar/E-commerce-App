@@ -51,7 +51,7 @@ class HomePageServices {
       for (int i = 0; i < jsonData.length; i++) {
         bannerDataList.add(BannerModel.fromJson(json: jsonData[i]));
       }
-      log('Success Get Data ${bannerDataList}');
+      log('Success Get Data $bannerDataList');
 
       return bannerDataList;
     } on DioException catch (e) {

@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class SearchBarField extends StatelessWidget {
-  SearchBarField({required this.controller, required this.onChanged});
+  SearchBarField(
+      {super.key, required this.controller, required this.onChanged});
   TextEditingController controller = TextEditingController();
   Function(String) onChanged;
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: MediaQuery.of(context).size.height * 0.07,
       child: TextField(
         onChanged: onChanged,

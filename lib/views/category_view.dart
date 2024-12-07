@@ -9,38 +9,41 @@ class CategoryView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: double.infinity,
-      child: FutureBuilder<List<CategoriesModel>>(
-          future: HomePageServices().getCategoriesData(),
-          builder: (BuildContext contetx, AsyncSnapshot snapShot) {
-            if (snapShot.connectionState == ConnectionState.waiting) {
-              return Center(child: CupertinoActivityIndicator());
-            } else if (snapShot.hasError) {
-              return Center(
-                  child: Text("Error fetching Categories : ${snapShot.error}"));
-            } else if (snapShot.hasData) {
-              List<CategoriesModel> CategoriesData = snapShot.data!;
-              return Container(
-                  height: MediaQuery.of(context).size.height * 0.25,
-                  width: double.infinity,
-                  child: GridView.builder(
-                      physics: BouncingScrollPhysics(),
-                      itemCount: CategoriesData.length,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 8,
-                        crossAxisSpacing: 8,
-                        childAspectRatio: .8,
-                      ),
-                      itemBuilder: (context, index) {
-                        return CategoryCard(
-                            categoriesModel: CategoriesData[index]);
-                      }));
-            } else {
-              return Center(child: Text("No banners available"));
-            }
-          }),
+    return Scaffold(
+      body: SizedBox(
+        height: double.infinity,
+        child: FutureBuilder<List<CategoriesModel>>(
+            future: HomePageServices().getCategoriesData(),
+            builder: (BuildContext contetx, AsyncSnapshot snapShot) {
+              if (snapShot.connectionState == ConnectionState.waiting) {
+                return Center(child: CupertinoActivityIndicator());
+              } else if (snapShot.hasError) {
+                return Center(
+                    child:
+                        Text("Error fetching Categories : ${snapShot.error}"));
+              } else if (snapShot.hasData) {
+                List<CategoriesModel> CategoriesData = snapShot.data!;
+                return Container(
+                    height: MediaQuery.of(context).size.height * 0.25,
+                    width: double.infinity,
+                    child: GridView.builder(
+                        physics: BouncingScrollPhysics(),
+                        itemCount: CategoriesData.length,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 8,
+                          crossAxisSpacing: 8,
+                          childAspectRatio: .8,
+                        ),
+                        itemBuilder: (context, index) {
+                          return CategoryCard(
+                              categoriesModel: CategoriesData[index]);
+                        }));
+              } else {
+                return Center(child: Text("No banners available"));
+              }
+            }),
+      ),
     );
   }
 }
