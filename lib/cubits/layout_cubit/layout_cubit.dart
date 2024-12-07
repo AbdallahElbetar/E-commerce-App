@@ -26,8 +26,8 @@ class LayoutCubit extends Cubit<LayoutStates> {
   List<Widget> layoutListView = <Widget>[
     HomeView(),
     CategoryView(),
-    ShoppingCart(),
     FavoriteView(),
+    ShoppingCart(),
     ProfilePage(),
   ];
 

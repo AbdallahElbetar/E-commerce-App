@@ -4,7 +4,6 @@ import 'package:ecommerce/constants.dart';
 import 'package:ecommerce/cubits/favorite_cubit/favourite_states.dart';
 import 'package:ecommerce/models/product_model.dart';
 import 'package:ecommerce/services/shared_prefrences_service.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FavouriteCubit extends Cubit<FavouriteStates> {
@@ -27,10 +26,13 @@ class FavouriteCubit extends Cubit<FavouriteStates> {
         ),
       );
 
+      log(SharedPrefrencesService.getFromCache(key: "token"));
       favouriteProducts.clear();
-      final jsonData = response.data["data"]["data"] as List<dynamic>;
+      final List<dynamic> jsonData = response.data["data"]["data"];
+
       for (var element in jsonData) {
-        favouriteProducts.add(ProductModel.fromJson(jsonData: element));
+        favouriteProducts.add(ProductModel.fromJson(
+            jsonData: element["product"] as Map<String, dynamic>));
       }
 
       log("Success: Fetched ${favouriteProducts.length} favorite products.");
@@ -42,7 +44,7 @@ class FavouriteCubit extends Cubit<FavouriteStates> {
       return Future.error(e.message!);
     } catch (e) {
       emit(FailureAddToFavouriteState(message: e.toString()));
-      log("Error: ${e.toString()}");
+      log("General Error: ${e.toString()}");
       return Future.error(e.toString());
     }
   }
