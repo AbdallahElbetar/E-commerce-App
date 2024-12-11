@@ -1,4 +1,5 @@
 import 'package:ecommerce/api/home_page_services.dart';
+
 import 'package:ecommerce/cubits/layout_cubit/layout_cubit.dart';
 import 'package:ecommerce/cubits/layout_cubit/layout_states.dart';
 import 'package:ecommerce/models/banner_model.dart';
@@ -129,7 +130,10 @@ class HomeView extends StatelessWidget {
   }
 
   Widget buildProductSection(
-      LayoutStates state, BuildContext context, LayoutCubit cubit) {
+    LayoutStates state,
+    BuildContext context,
+    LayoutCubit cubit,
+  ) {
     if (state is SuccessGetProductState || state is SuccessFiltterData) {
       List<ProductModel> productData = cubit.productDataListWillFiltter;
       List<ProductModel> filteredProductData =

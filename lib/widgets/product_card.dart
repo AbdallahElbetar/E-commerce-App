@@ -1,12 +1,17 @@
+import 'package:ecommerce/cubits/favorite_cubit/favourite_cubet.dart';
+import 'package:ecommerce/cubits/favorite_cubit/favourite_states.dart';
 import 'package:ecommerce/models/product_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductCard extends StatelessWidget {
   final ProductModel productModel;
+
   ProductCard({required this.productModel});
 
   @override
   Widget build(BuildContext context) {
+    var cubit = BlocProvider.of<FavouriteCubit>(context);
     return Container(
       height: MediaQuery.of(context).size.height * 0.20,
       width: MediaQuery.of(context).size.height * 0.250,
@@ -36,12 +41,21 @@ class ProductCard extends StatelessWidget {
                   color: Colors.grey,
                 ),
               ),
-              IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.favorite,
-                    color: Colors.grey,
-                  ))
+              BlocBuilder<FavouriteCubit, FavouriteStates>(
+                builder: (context, state) {
+                  return IconButton(
+                      onPressed: () {
+                        cubit.deleteOrAddProductToFavourite(
+                            id: productModel.id);
+                      },
+                      icon: Icon(
+                        Icons.favorite,
+                        color: cubit.favProductId.contains(productModel.id)
+                            ? Colors.red
+                            : Colors.grey,
+                      ));
+                },
+              )
             ],
           )
         ],

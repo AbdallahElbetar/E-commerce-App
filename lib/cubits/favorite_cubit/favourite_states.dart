@@ -11,3 +11,13 @@ class FailureAddToFavouriteState extends FavouriteStates {
 
   FailureAddToFavouriteState({required this.message});
 }
+
+class SuccessDeleteOrAddToFavouriteState extends FavouriteStates {}
+
+class LoadingDeleteOrAddToFavouriteState extends FavouriteStates {}
+
+class FailureDeleteOrAddToFavouriteState extends FavouriteStates {
+  final String message;
+
+  FailureDeleteOrAddToFavouriteState({required this.message});
+}

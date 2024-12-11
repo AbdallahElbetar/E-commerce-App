@@ -1,4 +1,5 @@
 import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:ecommerce/constants.dart';
 import 'package:ecommerce/cubits/favorite_cubit/favourite_states.dart';
@@ -10,8 +11,11 @@ class FavouriteCubit extends Cubit<FavouriteStates> {
   FavouriteCubit() : super(InitialState());
   final Dio dio = Dio();
   List<ProductModel> favouriteProducts = [];
+  Set<int> favProductId = {};
 
   Future<List<ProductModel>> getFavProducts() async {
+    favouriteProducts.clear();
+    favProductId.clear();
     try {
       emit(LoadingAddToFavouriteState());
 
@@ -27,12 +31,13 @@ class FavouriteCubit extends Cubit<FavouriteStates> {
       );
 
       log(SharedPrefrencesService.getFromCache(key: "token"));
-      favouriteProducts.clear();
+
       final List<dynamic> jsonData = response.data["data"]["data"];
 
       for (var element in jsonData) {
         favouriteProducts.add(ProductModel.fromJson(
             jsonData: element["product"] as Map<String, dynamic>));
+        favProductId.add(element["product"]["id"]);
       }
 
       log("Success: Fetched ${favouriteProducts.length} favorite products.");
@@ -44,6 +49,48 @@ class FavouriteCubit extends Cubit<FavouriteStates> {
       return Future.error(e.message!);
     } catch (e) {
       emit(FailureAddToFavouriteState(message: e.toString()));
+      log("General Error: ${e.toString()}");
+      return Future.error(e.toString());
+    }
+  }
+
+  Future<void> deleteOrAddProductToFavourite({required num id}) async {
+    try {
+      emit(LoadingDeleteOrAddToFavouriteState());
+      Response response = await dio.post(
+        deleteOrAddFavProductsBaseUrl,
+        data: {
+          "product_id": id,
+        },
+        options: Options(
+          headers: {
+            "lang": "en",
+            "Content-Type": "application/json",
+            "Authorization": SharedPrefrencesService.getFromCache(key: "token"),
+          },
+        ),
+      );
+      Map<String, dynamic> jsonData = response.data;
+      if (jsonData["status"] == true) {
+        if (jsonData["message"] == "Added Successfully" ||
+            favProductId.contains(id)) {
+          favProductId.remove(id);
+        } else {
+          favProductId.add(id as int);
+        }
+
+        await getFavProducts();
+
+        emit(SuccessDeleteOrAddToFavouriteState());
+      } else {
+        emit(FailureDeleteOrAddToFavouriteState(message: jsonData["message"]));
+      }
+    } on DioException catch (e) {
+      emit(FailureDeleteOrAddToFavouriteState(message: e.message!));
+      log("Dio Error: ${e.message}");
+      return Future.error(e.message!);
+    } catch (e) {
+      emit(FailureDeleteOrAddToFavouriteState(message: e.toString()));
       log("General Error: ${e.toString()}");
       return Future.error(e.toString());
     }

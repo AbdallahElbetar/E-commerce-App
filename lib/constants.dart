@@ -7,3 +7,5 @@ const String getCategoriesBaseUrl =
 const String getProductsHomeBaseUrl = "https://student.valuxapps.com/api/home";
 const String getFavProductsBaseUrl =
     "https://student.valuxapps.com/api/favorites";
+const String deleteOrAddFavProductsBaseUrl =
+    "https://student.valuxapps.com/api/favorites";

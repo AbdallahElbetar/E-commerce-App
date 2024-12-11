@@ -1,70 +1,103 @@
-import 'package:ecommerce/models/product_model.dart';
-
+import 'package:ecommerce/cubits/favorite_cubit/favourite_cubet.dart';
 import 'package:flutter/material.dart';
+import 'package:ecommerce/models/product_model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FavouriteCard extends StatelessWidget {
-  const FavouriteCard({required this.productModel});
   final ProductModel productModel;
+  final VoidCallback onPressed;
+
+  const FavouriteCard({
+    super.key,
+    required this.productModel,
+    required this.onPressed,
+  });
+
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      child: Container(
-        height: MediaQuery.of(context).size.height * 0.20,
-        width: MediaQuery.of(context).size.height * 0.250,
-        decoration: BoxDecoration(
-            color: Colors.grey.shade100,
-            borderRadius: BorderRadius.circular(10)),
+    return Card(
+      elevation: 4,
+      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      child:
+          // Product details
+          Padding(
+        padding: const EdgeInsets.all(8.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Image.network(
-              height: MediaQuery.of(context).size.height * 0.20,
-              width: MediaQuery.of(context).size.height * 0.250,
-              productModel.image,
-              fit: BoxFit.contain,
-            ),
-            Text(
-              productModel.name,
-              overflow: TextOverflow.ellipsis,
-              maxLines: 2,
-              style:
-                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-            ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "${productModel.price}\$",
-                  style: TextStyle(
-                    color: Colors.grey,
+                // Product image
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.network(
+                    productModel.image,
+                    width: 100,
+                    height: 100,
+                    fit: BoxFit.cover,
                   ),
                 ),
-                Text(
-                  "${productModel.discount}\$",
-                  style: TextStyle(
-                    decoration: TextDecoration.lineThrough,
-                    decorationThickness: .5,
-                    color: Colors.grey,
+                const SizedBox(width: 12),
+                // Product info
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        productModel.name,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Text(
+                            '${productModel.price}\$',
+                            style: const TextStyle(
+                              fontSize: 14,
+                              color: Colors.green,
+                            ),
+                          ),
+                          Text(
+                            '${productModel.oldPrice}\$',
+                            style: const TextStyle(
+                              decoration: TextDecoration.lineThrough,
+                              decorationThickness: .5,
+                              fontSize: 14,
+                              color: Colors.green,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.indigo,
-                  ),
-                  onPressed: () {},
-                  child: Text(
-                    "Remove",
-                    style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold),
-                  ),
-                )
               ],
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.02,
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.indigo,
+              ),
+              onPressed: () {
+                BlocProvider.of<FavouriteCubit>(context)
+                    .deleteOrAddProductToFavourite(id: productModel.id);
+              },
+              child: Text(
+                "Remove",
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              ),
             )
           ],
         ),
       ),
+      // Remove button
     );
-    ;
   }
 }
