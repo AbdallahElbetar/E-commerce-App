@@ -1,5 +1,6 @@
 import 'package:ecommerce/cubits/auth_cubit/login_cubit/login_cubit.dart';
 import 'package:ecommerce/cubits/auth_cubit/register_cubit/register_cubit.dart';
+import 'package:ecommerce/cubits/cart_cubit/cart_cubit.dart';
 import 'package:ecommerce/cubits/favorite_cubit/favourite_cubet.dart';
 import 'package:ecommerce/cubits/layout_cubit/layout_cubit.dart';
 import 'package:ecommerce/pages/authintiction_page.dart';
@@ -39,6 +40,7 @@ class Ecommerce extends StatelessWidget {
           BlocProvider<FavouriteCubit>(
             create: (context) => FavouriteCubit(),
           ),
+          BlocProvider<CartCubit>(create: (context) => CartCubit()),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
