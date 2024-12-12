@@ -8,6 +8,7 @@ import 'package:ecommerce/pages/layout_page.dart';
 import 'package:ecommerce/pages/login_page.dart';
 import 'package:ecommerce/pages/register_page.dart';
 import 'package:ecommerce/pages/splash_page.dart';
+import 'package:ecommerce/pages/update_data_page.dart';
 import 'package:ecommerce/services/shared_prefrences_service.dart';
 
 import 'package:flutter/material.dart';
@@ -54,6 +55,7 @@ class Ecommerce extends StatelessWidget {
             RegisterPage.id: (context) => RegisterPage(),
             LoginPage.id: (context) => LoginPage(),
             AuthintictionPage.id: (context) => AuthintictionPage(),
+            UpdateDataPage.id: (context) => UpdateDataPage(),
           },
           initialRoute: SplashPage.id,
         ),

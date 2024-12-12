@@ -125,4 +125,37 @@ class LayoutCubit extends Cubit<LayoutStates> {
     emit(SuccessFiltterData(productData: productFilttered));
     return productFilttered;
   }
+
+  Future<void> changePasswordUser(
+      {required String currentPassword, required String newPassword}) async {
+    try {
+      emit(LoadingChangePasswordUserState());
+      Response response = await dio.post(changePasswordUserBaseUrl,
+          options: Options(
+            headers: {
+              "lang": "en",
+              "Content-Type": "application/json",
+              "Authorization":
+                  SharedPrefrencesService.getFromCache(key: "token"),
+            },
+          ),
+          data: {
+            "current_password": currentPassword,
+            "new_password": newPassword,
+          });
+      if (response.data["status"] == true) {
+        log("Succes Change Password");
+        emit(SuccessChangePasswordUserState(message: response.data["message"]));
+      } else {
+        log("Failure Change Password");
+        emit(FailureChangePasswordUserState(error: response.data["message"]));
+      }
+    } on DioException catch (e) {
+      log("IN Dio Error ${e.message.toString()}");
+      emit(FailureChangePasswordUserState(error: e.message.toString()));
+    } catch (e) {
+      log("In General Error ${e.toString()}");
+      emit(FailureChangePasswordUserState(error: e.toString()));
+    }
+  }
 }

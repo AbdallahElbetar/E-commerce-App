@@ -22,18 +22,6 @@ class FailureUserDataState extends LayoutStates {
 
 class BottomNavigationChangedState extends LayoutStates {}
 
-// class LoadingGetBannerState extends LayoutStates {}
-
-// class SuccessGetBannerState extends LayoutStates {
-//   List<BannerModel> bannerData;
-//   SuccessGetBannerState({required this.bannerData});
-// }
-
-// class FailureGetBannerState extends LayoutStates {
-//   final String message;
-//   FailureGetBannerState({required this.message});
-// }
-
 class LoadingGetProductState extends LayoutStates {}
 
 class SuccessGetProductState extends LayoutStates {
@@ -49,4 +37,16 @@ class FailureGetProductState extends LayoutStates {
 class SuccessFiltterData extends LayoutStates {
   List<ProductModel> productData;
   SuccessFiltterData({required this.productData});
+}
+
+class SuccessChangePasswordUserState extends LayoutStates {
+  final String message;
+  SuccessChangePasswordUserState({required this.message});
+}
+
+class LoadingChangePasswordUserState extends LayoutStates {}
+
+class FailureChangePasswordUserState extends LayoutStates {
+  final String error;
+  FailureChangePasswordUserState({required this.error});
 }

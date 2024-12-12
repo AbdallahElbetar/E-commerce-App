@@ -26,27 +26,32 @@ class HomeView extends StatelessWidget {
     return BlocConsumer<LayoutCubit, LayoutStates>(
       listener: (context, state) {},
       builder: (context, state) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: ListView(
-            physics: BouncingScrollPhysics(),
-            children: [
-              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-              SearchBarField(
-                controller: controller,
-                onChanged: (value) {
-                  context.read<LayoutCubit>().fliterProductData(input: value);
-                },
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-              buildBannerSection(context),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-              buildPageIndicator(state),
-              buildCategoriesHeader(),
-              BuildCategoriesSection(context),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-              buildProductSection(state, context, cubit),
-            ],
+        return RefreshIndicator(
+          onRefresh: () async {
+            await cubit.getHomeProduct();
+          },
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: ListView(
+              physics: BouncingScrollPhysics(),
+              children: [
+                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                SearchBarField(
+                  controller: controller,
+                  onChanged: (value) {
+                    context.read<LayoutCubit>().fliterProductData(input: value);
+                  },
+                ),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                buildBannerSection(context),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                buildPageIndicator(state),
+                buildCategoriesHeader(),
+                BuildCategoriesSection(context),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                buildProductSection(state, context, cubit),
+              ],
+            ),
           ),
         );
       },

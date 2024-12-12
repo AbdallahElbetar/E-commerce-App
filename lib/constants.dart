@@ -10,3 +10,7 @@ const String getFavProductsBaseUrl =
 const String deleteOrAddFavProductsBaseUrl =
     "https://student.valuxapps.com/api/favorites";
 const String getCartProductBaseUrl = "https://student.valuxapps.com/api/carts";
+const String addOrRemoveFromCartProductBaseUrl =
+    "https://student.valuxapps.com/api/carts";
+const String changePasswordUserBaseUrl =
+    "https://student.valuxapps.com/api/change-password";

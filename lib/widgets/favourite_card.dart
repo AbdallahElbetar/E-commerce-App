@@ -45,6 +45,8 @@ class FavouriteCard extends StatelessWidget {
                     children: [
                       Text(
                         productModel.name,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 3,
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,

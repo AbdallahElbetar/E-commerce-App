@@ -6,12 +6,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CartCard extends StatelessWidget {
-  const CartCard({super.key, required this.productModel});
+  const CartCard(
+      {super.key, required this.productModel, required this.onPressed});
   final ProductModel productModel;
+
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
     final favCubit = BlocProvider.of<FavouriteCubit>(context);
+
     return Card(
       elevation: 4,
       margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
@@ -42,6 +46,8 @@ class CartCard extends StatelessWidget {
                     children: [
                       Text(
                         productModel.name,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 3,
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -105,7 +111,7 @@ class CartCard extends StatelessWidget {
                   height: MediaQuery.of(context).size.width * 0.06,
                 ),
                 IconButton(
-                    onPressed: () {},
+                    onPressed: onPressed,
                     icon: Icon(
                       Icons.delete,
                       color: Colors.grey,

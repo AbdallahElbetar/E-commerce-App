@@ -22,7 +22,7 @@ class ProfilePage extends StatelessWidget {
         if (state is SuccessUserDataState) {
           final UserModel userModel = state.userModel;
 
-          return profile_body(UserData: userModel);
+          return profile_body(userModel: userModel);
         } else if (state is FailureUserDataState) {
           return Center(
             child: Text("Oops,${state.message}"),
