@@ -8,6 +8,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class LayoutPage extends StatelessWidget {
   static String id = "Layoutpage";
 
+  const LayoutPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     var cubit = BlocProvider.of<LayoutCubit>(context);

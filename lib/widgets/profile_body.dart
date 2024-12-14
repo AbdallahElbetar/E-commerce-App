@@ -1,7 +1,13 @@
+import 'package:ecommerce/cubits/layout_cubit/layout_cubit.dart';
+import 'package:ecommerce/cubits/layout_cubit/layout_states.dart';
 import 'package:ecommerce/models/user_model.dart';
+
+import 'package:ecommerce/pages/login_page.dart';
 import 'package:ecommerce/pages/update_data_page.dart';
+import 'package:ecommerce/services/shared_prefrences_service.dart';
 import 'package:ecommerce/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class profile_body extends StatelessWidget {
   final UserModel userModel;
@@ -12,6 +18,7 @@ class profile_body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var layOutCubit = BlocProvider.of<LayoutCubit>(context);
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 12),
       child: Column(
@@ -140,33 +147,55 @@ class profile_body extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 80),
-            child: CustomButton(
-                onTap: () {},
-                CustomWidget: Row(
-                  children: [
-                    Spacer(
-                      flex: 1,
-                    ),
-                    Icon(
-                      Icons.logout,
-                      color: Colors.white,
-                      size: 30,
-                    ),
-                    Spacer(
-                      flex: 3,
-                    ),
-                    Text(
-                      "Log Out",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
+            child: BlocConsumer<LayoutCubit, LayoutStates>(
+              bloc: layOutCubit,
+              listener: (context, state) async {
+                if (state is SuccessLogOutUserState) {
+                } else if (state is FailureLogOutUserState) {
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(SnackBar(content: Text(state.error)));
+                }
+              },
+              builder: (context, state) {
+                return CustomButton(
+                    onTap: () {
+                      layOutCubit.logOutUser(
+                        fcmToken:
+                            SharedPrefrencesService.getFromCache(key: "token"),
+                      );
+                      Navigator.pushReplacementNamed(context, LoginPage.id);
+                    },
+                    CustomWidget: Row(
+                      children: [
+                        Spacer(
+                          flex: 1,
+                        ),
+                        Icon(
+                          Icons.logout,
                           color: Colors.white,
-                          fontSize: 20),
-                    ),
-                    Spacer(
-                      flex: 4,
-                    ),
-                  ],
-                )),
+                          size: 30,
+                        ),
+                        Spacer(
+                          flex: 3,
+                        ),
+                        (state is LoadingLogOutUserState)
+                            ? CircularProgressIndicator(
+                                color: Colors.white,
+                              )
+                            : Text(
+                                "Log Out",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                    fontSize: 20),
+                              ),
+                        Spacer(
+                          flex: 4,
+                        ),
+                      ],
+                    ));
+              },
+            ),
           ),
         ],
       ),

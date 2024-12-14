@@ -50,3 +50,15 @@ class FailureChangePasswordUserState extends LayoutStates {
   final String error;
   FailureChangePasswordUserState({required this.error});
 }
+
+class SuccessLogOutUserState extends LayoutStates {
+  final String message;
+  SuccessLogOutUserState({required this.message});
+}
+
+class LoadingLogOutUserState extends LayoutStates {}
+
+class FailureLogOutUserState extends LayoutStates {
+  final String error;
+  FailureLogOutUserState({required this.error});
+}

@@ -1,15 +1,16 @@
 import 'package:ecommerce/cubits/favorite_cubit/favourite_cubet.dart';
+import 'package:ecommerce/models/in_fav_product_model.dart';
 import 'package:flutter/material.dart';
-import 'package:ecommerce/models/product_model.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FavouriteCard extends StatelessWidget {
-  final ProductModel productModel;
+  final InFavProductModel favProductModel;
   final VoidCallback onPressed;
 
   const FavouriteCard({
     super.key,
-    required this.productModel,
+    required this.favProductModel,
     required this.onPressed,
   });
 
@@ -31,7 +32,7 @@ class FavouriteCard extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
                   child: Image.network(
-                    productModel.image,
+                    favProductModel.image,
                     width: 100,
                     height: 100,
                     fit: BoxFit.cover,
@@ -44,7 +45,7 @@ class FavouriteCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        productModel.name,
+                        favProductModel.name,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 3,
                         style: const TextStyle(
@@ -57,14 +58,14 @@ class FavouriteCard extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Text(
-                            '${productModel.price}\$',
+                            '${favProductModel.price}\$',
                             style: const TextStyle(
                               fontSize: 14,
                               color: Colors.green,
                             ),
                           ),
                           Text(
-                            '${productModel.oldPrice}\$',
+                            '${favProductModel.oldPrice}\$',
                             style: const TextStyle(
                               decoration: TextDecoration.lineThrough,
                               decorationThickness: .5,
@@ -88,7 +89,7 @@ class FavouriteCard extends StatelessWidget {
               ),
               onPressed: () {
                 BlocProvider.of<FavouriteCubit>(context)
-                    .deleteOrAddProductToFavourite(id: productModel.id);
+                    .deleteOrAddProductToFavourite(id: favProductModel.id);
               },
               child: Text(
                 "Remove",

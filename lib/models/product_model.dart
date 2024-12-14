@@ -6,16 +6,19 @@ class ProductModel {
   final String image;
   final String name;
   final String decription;
+  final bool inFavorites;
+  final bool inCarts;
 
-  ProductModel({
-    required this.id,
-    required this.price,
-    required this.oldPrice,
-    required this.discount,
-    required this.image,
-    required this.name,
-    required this.decription,
-  });
+  ProductModel(
+      {required this.id,
+      required this.price,
+      required this.oldPrice,
+      required this.discount,
+      required this.image,
+      required this.name,
+      required this.decription,
+      required this.inFavorites,
+      required this.inCarts});
 
   factory ProductModel.fromJson({required Map<String, dynamic> jsonData}) {
     return ProductModel(
@@ -26,6 +29,8 @@ class ProductModel {
       image: jsonData["image"],
       name: jsonData["name"],
       decription: jsonData["description"],
+      inFavorites: jsonData["in_favorites"],
+      inCarts: jsonData["in_cart"],
     );
   }
 }

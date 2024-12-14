@@ -3,17 +3,18 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:ecommerce/constants.dart';
 import 'package:ecommerce/cubits/favorite_cubit/favourite_states.dart';
-import 'package:ecommerce/models/product_model.dart';
+import 'package:ecommerce/models/in_fav_product_model.dart';
+
 import 'package:ecommerce/services/shared_prefrences_service.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FavouriteCubit extends Cubit<FavouriteStates> {
   FavouriteCubit() : super(InitialState());
   final Dio dio = Dio();
-  List<ProductModel> favouriteProducts = [];
+  List<InFavProductModel> favouriteProducts = [];
   Set<int> favProductId = {};
 
-  Future<List<ProductModel>> getFavProducts() async {
+  Future<List<InFavProductModel>> getFavProducts() async {
     favouriteProducts.clear();
     favProductId.clear();
     try {
@@ -35,9 +36,11 @@ class FavouriteCubit extends Cubit<FavouriteStates> {
       final List<dynamic> jsonData = response.data["data"]["data"];
 
       for (var element in jsonData) {
-        favouriteProducts.add(ProductModel.fromJson(
+        favouriteProducts.add(InFavProductModel.fromJson(
             jsonData: element["product"] as Map<String, dynamic>));
-        favProductId.add(element["product"]["id"]);
+        favProductId.add(
+          element["product"]["id"],
+        );
       }
 
       log("Success: Fetched ${favouriteProducts.length} favorite products.");
@@ -50,6 +53,8 @@ class FavouriteCubit extends Cubit<FavouriteStates> {
     } catch (e) {
       emit(FailureAddToFavouriteState(message: e.toString()));
       log("General Error: ${e.toString()}");
+      log(SharedPrefrencesService.getFromCache(key: "token"));
+
       return Future.error(e.toString());
     }
   }

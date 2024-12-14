@@ -158,7 +158,7 @@ class HomeView extends StatelessWidget {
         ),
         itemBuilder: (context, index) {
           return ProductCard(
-            productModel: filteredProductData.isNotEmpty
+            product: filteredProductData.isNotEmpty
                 ? filteredProductData[index]
                 : productData[index],
           );

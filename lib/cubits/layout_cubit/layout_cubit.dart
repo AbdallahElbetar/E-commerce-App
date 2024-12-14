@@ -158,4 +158,44 @@ class LayoutCubit extends Cubit<LayoutStates> {
       emit(FailureChangePasswordUserState(error: e.toString()));
     }
   }
+
+  Future<void> logOutUser({required String fcmToken}) async {
+    try {
+      emit(LoadingLogOutUserState());
+      Response response = await dio.post(logOutUserBaseUrl,
+          options: Options(
+            headers: {
+              "lang": "en",
+              "Content-Type": "application/json",
+              "Authorization":
+                  SharedPrefrencesService.getFromCache(key: "token"),
+            },
+          ),
+          data: {
+            "fcm_token": fcmToken,
+          });
+      Map<String, dynamic> jsonData = response.data;
+
+      if (jsonData["status"] == true) {
+        log("Success LogOut  Token is ${SharedPrefrencesService.getFromCache(key: "token")}");
+
+        emit(
+          SuccessLogOutUserState(
+            message: jsonData["message"],
+          ),
+        );
+        await SharedPrefrencesService.deletefromCache(key: "token");
+      } else {
+        log("Failed LogOut Token is ${SharedPrefrencesService.getFromCache(key: "token")}");
+
+        emit(FailureLogOutUserState(error: jsonData["message"]));
+      }
+    } on DioException catch (e) {
+      log("In Dio Error ${e.message}");
+      emit(FailureLogOutUserState(error: e.message!.toString()));
+    } catch (e) {
+      log("In General Error ${e.toString()}");
+      emit(FailureLogOutUserState(error: e.toString()));
+    }
+  }
 }

@@ -14,3 +14,4 @@ const String addOrRemoveFromCartProductBaseUrl =
     "https://student.valuxapps.com/api/carts";
 const String changePasswordUserBaseUrl =
     "https://student.valuxapps.com/api/change-password";
+const String logOutUserBaseUrl = "https://student.valuxapps.com/api/logout";

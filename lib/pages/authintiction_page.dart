@@ -8,12 +8,12 @@ import 'package:flutter/widgets.dart';
 class AuthintictionPage extends StatelessWidget {
   AuthintictionPage({super.key});
   static String id = "AuthintictionPage";
-  late String ValueOfToken;
+  late String valueOfToken;
 
   @override
   Widget build(BuildContext context) {
-    ValueOfToken = SharedPrefrencesService.getFromCache(key: "token");
-    if (ValueOfToken == "") {
+    valueOfToken = SharedPrefrencesService.getFromCache(key: "token");
+    if (valueOfToken == "") {
       return LoginPage();
     } else {
       return LayoutPage();

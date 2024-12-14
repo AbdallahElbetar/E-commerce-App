@@ -60,12 +60,9 @@ class FavoriteView extends StatelessWidget {
                 ),
                 itemBuilder: (context, index) {
                   return FavouriteCard(
-                    productModel: cubit.favouriteProducts[index],
+                    favProductModel: cubit.favouriteProducts[index],
                     onPressed: () {
                       // Handle the favorite button press
-                      cubit.deleteOrAddProductToFavourite(
-                        id: cubit.favouriteProducts[index].id,
-                      );
                     },
                   );
                 },

@@ -3,7 +3,7 @@ import 'package:ecommerce/models/categories_model.dart';
 import 'package:flutter/material.dart';
 
 class CategoryCard extends StatelessWidget {
-  CategoryCard({required this.categoriesModel});
+  const CategoryCard({super.key, required this.categoriesModel});
   final CategoriesModel categoriesModel;
 
   @override

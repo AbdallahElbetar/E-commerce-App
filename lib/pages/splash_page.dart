@@ -17,7 +17,8 @@ class _SplashPageState extends State<SplashPage> {
 
     Future.delayed(
       Duration(seconds: 4),
-      () {
+      () async {
+        // ignore: use_build_context_synchronously
         Navigator.pushReplacementNamed(context, AuthintictionPage.id);
       },
     );

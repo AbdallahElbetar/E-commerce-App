@@ -22,8 +22,9 @@ class CategoryView extends StatelessWidget {
                     child:
                         Text("Error fetching Categories : ${snapShot.error}"));
               } else if (snapShot.hasData) {
+                // ignore: non_constant_identifier_names
                 List<CategoriesModel> CategoriesData = snapShot.data!;
-                return Container(
+                return SizedBox(
                     height: MediaQuery.of(context).size.height * 0.25,
                     width: double.infinity,
                     child: GridView.builder(
